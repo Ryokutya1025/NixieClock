@@ -5,7 +5,9 @@ body {
     justify-content: center; 
     align-items: center; 
     height: 100vh; 
+    /* 念のため、全体が揺れないように */
     overflow: hidden; 
+    width: 100vw;
 }
 
 .clock-container { 
@@ -13,7 +15,8 @@ body {
     align-items: flex-end; 
     justify-content: center;
     width: 100%;
-    padding: 0 2vw;
+    /* 左右の余白を最小限に */
+    padding: 0 1vw;
     box-sizing: border-box;
 }
 
@@ -21,27 +24,27 @@ body {
 .unit { 
     position: relative; 
     width: auto; 
-    margin: 0 0.2vw;
+    /* 要素同士をミッチリ並べるためにマージンを最小に */
+    margin: 0 0.1vw;
 } 
 
-/* --- サイズの切り替え設定 --- */
-
-/* 1. 基本設定（デスクトップ・タブレット向け） */
+/* 1. デスクトップ版：高さ基準で大きく表示 */
 .unit {
-    /* 画面の高さの 60% くらいまで大きく使い、最大 500px まで許可 */
     height: clamp(150px, 60vh, 500px); 
 }
 
-/* 2. スマホ向け設定（画面幅が狭い時） */
+/* 2. スマホ版：横幅基準で「絶対に見切れない」ように計算 */
 @media (max-width: 768px) {
     .unit {
-        /* 横に8個並ぶように、1つあたりの高さを横幅(vw)から逆算 */
-        /* 11vw * 1.75(比率) ≒ 19vw */
-        height: 19vw; 
+        /* 100vwの中に数字6個+コロン2個（実質、数字7〜7.5個分の幅）を収める計算。
+           11vw だとマージン分で見切れるため、10.5vw まで落とし、
+           それに動画の比率(1.75)を掛けます。
+        */
+        height: calc(10.5vw * 1.75); 
     }
 }
 
-/* ビデオと位置の設定（ここは変更なし） */
+/* ビデオの配置設定 */
 .unit video { 
     height: 100%; 
     width: auto; 
@@ -55,9 +58,16 @@ body {
     transform: translateX(-50%);
 }
 
+/* 重要なガイド：ここが数字の「幅」を決めています */
 .digit.unit::before {
     content: "";
     display: block;
     height: 100%;
     aspect-ratio: 200 / 350; 
+}
+
+/* コロンの幅が広すぎる場合の微調整（任意） */
+.colon.unit {
+    /* コロンの素材の幅が数字より狭い場合、ここで明示するとさらに余白が詰まります */
+    max-width: 6vw; 
 }
