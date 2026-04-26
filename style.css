@@ -5,7 +5,6 @@ body {
     justify-content: center; 
     align-items: center; 
     height: 100vh; 
-    /* 横揺れ防止 */
     overflow: hidden; 
 }
 
@@ -13,33 +12,26 @@ body {
     display: flex; 
     align-items: flex-end; 
     justify-content: center;
-    /* 画面幅いっぱいに広がりつつ、最大サイズを制限する */
     width: 100%;
-    max-width: 1400px; /* PCでの巨大化防止（お好みで調整） */
-    padding: 0 10px;
-    box-sizing: border-box;
 }
 
-.digit { 
+.digit, .colon { 
     position: relative; 
-    /* 固定幅をやめ、コンテナに対して均等な幅にする */
-    flex: 1;
-    aspect-ratio: 200 / 350; /* 元のサイズ比率を維持 */
-    max-width: 200px; /* 元のサイズより大きくならないように */
+    /* 画面幅の12%を基準にしつつ、最小でも50px、最大でも200pxにする設定 */
+    width: clamp(50px, 12vw, 200px); 
+    
+    /* 比率を維持（200:350 = 1:1.75） */
+    aspect-ratio: 200 / 350; 
 } 
 
-.digit video { 
-    position: absolute; 
-    left: 0; 
-    bottom: 0; 
-    width: 100%; /* 親要素の幅に合わせる */
-    height: auto;
-}
-
-.colon { 
-    /* コロンも数字と同じ比率で伸縮させる */
-    flex: 1;
-    max-width: 200px;
+.digit video, .colon { 
+    width: 100%; 
     height: auto;
     display: block;
+}
+
+.digit video {
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }
