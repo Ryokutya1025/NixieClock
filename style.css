@@ -1,0 +1,33 @@
+body { 
+    background-color: black; 
+    margin: 0; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+}
+
+.clock-container { 
+    display: flex; 
+    align-items: flex-end; /* 下端で揃える */
+    justify-content: center;
+}
+
+.digit { 
+    position: relative; 
+    width: 200px; 
+    height: 350px; /* 数字とコロンで共通の高さにする（動画の高さに合わせる） */
+} 
+
+.digit video { 
+    position: absolute; 
+    left: 0; 
+    bottom: 0; /* 下に張り付かせる */
+    width: 200px; 
+}
+
+.colon { 
+    width: 200px;
+    height: auto;
+    display: block; /* 余計な隙間を消す */
+}

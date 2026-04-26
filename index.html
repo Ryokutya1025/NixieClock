@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <title>Nixie Clock</title>
+</head>
+<body>
+    <div class="clock-container">
+        <div class="digit" id="digit1">
+            <video class="v-a" muted playsinline></video>
+            <video class="v-b" muted playsinline style="visibility:hidden;"></video>
+        </div>
+        <div class="digit" id="digit2">
+            <video class="v-a" muted playsinline></video>
+            <video class="v-b" muted playsinline style="visibility:hidden;"></video>
+        </div>
+        <video class="colon" src="./time/colon_2k.webm" muted autoplay playsinline loop></video>
+        <div class="digit" id="digit3">
+            <video class="v-a" muted playsinline></video>
+            <video class="v-b" muted playsinline style="visibility:hidden;"></video>
+        </div>
+        <div class="digit" id="digit4">
+            <video class="v-a" muted playsinline></video>
+            <video class="v-b" muted playsinline style="visibility:hidden;"></video>
+        </div>
+        <video class="colon" src="./time/colon_2k.webm" muted autoplay playsinline loop></video>
+        <div class="digit" id="digit5">
+            <video class="v-a" muted playsinline></video>
+            <video class="v-b" muted playsinline style="visibility:hidden;"></video>
+        </div>
+        <div class="digit" id="digit6">
+            <video class="v-a" muted playsinline></video>
+            <video class="v-b" muted playsinline style="visibility:hidden;"></video>
+        </div>
+    </div>
+    <script src="./script.js"></script>
+</body>
+</html>
