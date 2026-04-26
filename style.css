@@ -13,25 +13,31 @@ body {
     align-items: flex-end; 
     justify-content: center;
     width: 100%;
+    /* 左右の余白を 5vw → 1vw に減らして画面端まで使う */
+    padding: 0 1vw; 
+    box-sizing: border-box;
 }
 
-.digit, .colon { 
+.unit { 
     position: relative; 
-    /* 画面幅の12%を基準にしつつ、最小でも50px、最大でも200pxにする設定 */
-    width: clamp(50px, 12vw, 200px); 
-    
-    /* 比率を維持（200:350 = 1:1.75） */
+    /* 12vw → 15vw に増やして、1つ1つの数字を大きくする */
+    /* 最大サイズも 200px → 250px に引き上げ */
+    width: clamp(40px, 15vw, 250px); 
     aspect-ratio: 200 / 350; 
+    flex-shrink: 1;
+    /* 数字同士の隙間が気になる場合はここを調整（例: -0.5vw とかにすると重なる） */
+    margin: 0 0.2vw; 
 } 
 
-.digit video, .colon { 
+.unit video { 
+    position: absolute; 
+    left: 0; 
+    bottom: 0; 
     width: 100%; 
-    height: auto;
-    display: block;
+    height: 100%;
+    object-fit: contain;
 }
 
-.digit video {
-    position: absolute;
-    left: 0;
-    bottom: 0;
+.colon.unit {
+    display: block;
 }
