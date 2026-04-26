@@ -5,69 +5,53 @@ body {
     justify-content: center; 
     align-items: center; 
     height: 100vh; 
-    /* 念のため、全体が揺れないように */
-    overflow: hidden; 
     width: 100vw;
+    overflow: hidden; 
 }
 
 .clock-container { 
     display: flex; 
-    align-items: flex-end; 
+    align-items: center; 
     justify-content: center;
-    width: 100%;
-    /* 左右の余白を最小限に */
-    padding: 0 1vw;
-    box-sizing: border-box;
+    /* 画面幅の96%を使い、左右の余白を最小限に */
+    width: 96vw;
+    max-width: 2000px; 
 }
 
-/* 共通ユニット設定 */
+/* 数字とコロン共通の箱 */
 .unit { 
     position: relative; 
-    width: auto; 
-    /* 要素同士をミッチリ並べるためにマージンを最小に */
-    margin: 0 0.1vw;
+    flex: 1; /* 8つの要素で均等に分割 */
+    /* ニキシー管の一般的な比率 4:7 (200x350) */
+    aspect-ratio: 200 / 350;
+    margin: 0 0.15vw; /* 隙間を極限まで詰める */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 } 
 
-/* 1. デスクトップ版：高さ基準で大きく表示 */
-.unit {
-    height: clamp(150px, 60vh, 500px); 
-}
-
-/* 2. スマホ版：横幅基準で「絶対に見切れない」ように計算 */
-@media (max-width: 768px) {
-    .unit {
-        /* 100vwの中に数字6個+コロン2個（実質、数字7〜7.5個分の幅）を収める計算。
-           11vw だとマージン分で見切れるため、10.5vw まで落とし、
-           それに動画の比率(1.75)を掛けます。
-        */
-        height: calc(10.5vw * 1.75); 
-    }
-}
-
-/* ビデオの配置設定 */
-.unit video { 
-    height: 100%; 
-    width: auto; 
-    display: block;
-}
-
-.digit.unit video {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-/* 重要なガイド：ここが数字の「幅」を決めています */
-.digit.unit::before {
-    content: "";
-    display: block;
+/* ビデオは枠内いっぱいに表示 */
+.unit video {
+    width: 100%;
     height: 100%;
-    aspect-ratio: 200 / 350; 
+    object-fit: contain;
+    display: block;
 }
 
-/* コロンの幅が広すぎる場合の微調整（任意） */
-.colon.unit {
-    /* コロンの素材の幅が数字より狭い場合、ここで明示するとさらに余白が詰まります */
-    max-width: 6vw; 
+/* 数字の重なり設定 */
+.digit video.v-b {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* モバイル（縦持ち）への対応：高さが足りなくなるのを防ぐ */
+@media (orientation: portrait) {
+    .clock-container {
+        width: 98vw;
+    }
+    .unit {
+        /* 縦長画面では横幅基準だと小さくなりすぎるため、高さを少し確保 */
+        max-height: 20vh; 
+    }
 }

@@ -1,4 +1,3 @@
-// 動画パスの定義
 const VIDEO_PATH = "./time/";
 const transitions = {
     normal: ["9to0", "0to1", "1to2", "2to3", "3to4", "4to5", "5to6", "6to7", "7to8", "8to9"],
@@ -15,7 +14,7 @@ let useA = [true, true, true, true, true, true];
 function updateClock() {
     const now = new Date();
     
-    // 表示を「現在時刻 + 1秒」にする
+    // 次の1秒を表示（切り替えアニメーション用）
     now.setSeconds(now.getSeconds() + 1);
 
     const h = now.getHours().toString().padStart(2, "0");
@@ -36,6 +35,8 @@ function updateClock() {
 
 function animateDigit(index, from, to) {
     const container = document.getElementById(`digit${index + 1}`);
+    if (!container) return;
+
     const vA = container.querySelector(".v-a");
     const vB = container.querySelector(".v-b");
 
@@ -55,8 +56,8 @@ function animateDigit(index, from, to) {
     nextVideo.load();
 
     nextVideo.oncanplaythrough = () => {
-        // 再生速度を動画の長さに合わせる
-        nextVideo.playbackRate = nextVideo.duration; 
+        // 再生速度を調整
+        nextVideo.playbackRate = nextVideo.duration || 1.0; 
         
         nextVideo.style.visibility = "visible";
         nextVideo.play();
@@ -69,5 +70,6 @@ function animateDigit(index, from, to) {
     };
 }
 
-setInterval(updateClock, 100);
+// 起動
+setInterval(updateClock, 1000);
 updateClock();
