@@ -13,31 +13,51 @@ body {
     align-items: flex-end; 
     justify-content: center;
     width: 100%;
-    /* 左右の余白を 5vw → 1vw に減らして画面端まで使う */
-    padding: 0 1vw; 
+    padding: 0 2vw;
     box-sizing: border-box;
 }
 
+/* 共通ユニット設定 */
 .unit { 
     position: relative; 
-    /* 12vw → 15vw に増やして、1つ1つの数字を大きくする */
-    /* 最大サイズも 200px → 250px に引き上げ */
-    width: clamp(40px, 15vw, 250px); 
-    aspect-ratio: 200 / 350; 
-    flex-shrink: 1;
-    /* 数字同士の隙間が気になる場合はここを調整（例: -0.5vw とかにすると重なる） */
-    margin: 0 0.2vw; 
+    width: auto; 
+    margin: 0 0.2vw;
 } 
 
-.unit video { 
-    position: absolute; 
-    left: 0; 
-    bottom: 0; 
-    width: 100%; 
-    height: 100%;
-    object-fit: contain;
+/* --- サイズの切り替え設定 --- */
+
+/* 1. 基本設定（デスクトップ・タブレット向け） */
+.unit {
+    /* 画面の高さの 60% くらいまで大きく使い、最大 500px まで許可 */
+    height: clamp(150px, 60vh, 500px); 
 }
 
-.colon.unit {
+/* 2. スマホ向け設定（画面幅が狭い時） */
+@media (max-width: 768px) {
+    .unit {
+        /* 横に8個並ぶように、1つあたりの高さを横幅(vw)から逆算 */
+        /* 11vw * 1.75(比率) ≒ 19vw */
+        height: 19vw; 
+    }
+}
+
+/* ビデオと位置の設定（ここは変更なし） */
+.unit video { 
+    height: 100%; 
+    width: auto; 
     display: block;
+}
+
+.digit.unit video {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.digit.unit::before {
+    content: "";
+    display: block;
+    height: 100%;
+    aspect-ratio: 200 / 350; 
 }
